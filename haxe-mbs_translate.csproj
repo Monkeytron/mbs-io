@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>haxe_mbs_translate</RootNamespace>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JonSkeet.MiscUtil" Version="0.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\stencyl\io\mbs\actortype\" />
+    <Folder Include="src\stencyl\io\mbs\game\autotile\" />
+  </ItemGroup>
+
+</Project>
