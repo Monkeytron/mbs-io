@@ -55,17 +55,13 @@ namespace haxe_mbs_translate.src
     {
         static void Main()
         {
+            // An example of how to use the code to read an mbs file. This specific code only works with scene-{id}.mbs currently.
+
             MbsReader reader = new MbsReader(MbsVersionControl.ALLCURRENTVERSIONS, false, true);
 
             Byte[] bytes = File.ReadAllBytes(Console.ReadLine());
 
             reader.readData(bytes);
-
-            // scene-x file has root of type MBS_SCENE
-            // scenes file has root of type MBS_SCENE_HEADER
-            // behaviors file has root of type MBS_SNIPPET_DEF
-            // game file has root of type MBS_GAME
-            // resources file has root of type MbsDynamicList
 
             MbsScene r = reader.getRoot();
 
@@ -74,27 +70,14 @@ namespace haxe_mbs_translate.src
             Console.WriteLine($"Successfully read scene {s.id} \"{s.name}\"");
             Console.WriteLine(s.ToString(true, true, true, true, true));
 
+            // Reading code finished.
 
-            Wireframe M = new Wireframe(new PointF(1312, 1472), new PointF[]
-            {
-                new PointF(0,0), new PointF(160,0), new PointF(160,160), new PointF(128,160), new PointF(128,32),
-                new PointF(96,32), new PointF(96,128), new PointF(64,128), new PointF(64,32), new PointF(32,32),
-                new PointF(32,160), new PointF(0,160)
-            });
-            Wireframe B = new Wireframe(new PointF(1504, 1472), new PointF[]
-            {
-                new PointF(0,0), new PointF(32,0), new PointF(32,64), new PointF(96,64), new PointF(96,160),
-                new PointF(0,160)
-            });
-            Wireframe S = new Wireframe(new PointF(1728, 1472), new PointF[]
-            {
-                new PointF(0,0), new PointF(96,0), new PointF(96,32), new PointF(32,32),
-                new PointF(32,64), new PointF(96,64), new PointF(96,160), new PointF(0,160),
-                new PointF(0,128), new PointF(64,128), new PointF(64,96), new PointF(0,96)
-            });
 
-            s.terrain = s.terrain.Concat(new Wireframe[] { M, B, S }).ToArray();
+            /*
+             * Data editing code can be added here.
+            */
 
+            // Writing code
 
             MbsWriter w = new MbsWriter(MbsVersionControl.DADISH.Item2, false, MbsVersionControl.DADISH.Item1);
 
@@ -109,6 +92,8 @@ namespace haxe_mbs_translate.src
             w.prepareForOutput();
 
             w.writeToFile("scene-test.mbs");
+
+            // Writing code finished.
 
             Console.WriteLine($"Successfully written scene {s.id} \"{s.name}\"");
 
