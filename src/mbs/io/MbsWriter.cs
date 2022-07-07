@@ -13,7 +13,7 @@ using haxe_mbs_translate.src.mbs.core.reflect;
 
 namespace haxe_mbs_translate.src.mbs.io
 {
-    class MbsWriter : MbsIO
+    public class MbsWriter : MbsIO
     {
         public ByteArray bytes;
 
