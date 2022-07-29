@@ -10,7 +10,7 @@ namespace haxe_mbs_translate.src.mbs.io
 {
     public class MbsListBase:MbsObject
     {
-        private MbsType type;
+        public MbsType type;
 
         protected int elementAddress;
         protected int elementSize;

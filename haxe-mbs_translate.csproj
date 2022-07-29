@@ -5,7 +5,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>haxe_mbs_translate</RootNamespace>
     <ApplicationIcon />
-    <StartupObject />
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

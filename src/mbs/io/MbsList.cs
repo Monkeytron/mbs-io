@@ -19,7 +19,7 @@ namespace haxe_mbs_translate.src.mbs.io
 
         public MbsList(MbsIO data, MbsType type, T _obj) : base(data, type)
         {
-            obj = _obj;
+            obj = _obj; 
         }
         public T getNextObject()
         {
