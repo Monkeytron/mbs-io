@@ -8,13 +8,14 @@ Currently this contains:
 - Core mbs types in src/mbs
 - Some of the derived mbs types stencyl uses in src/stencyl/io/mbs
 - Classes that can be used to store and edit the mbs data in src/stencyl
-- An example of how to read and write a .mbs file in src/program.cs
+- An example of how to read and write a scene .mbs file in src/program.cs
+- An example of how to read a behaviors.mbs file in src/program.cs
+
+To edit .mbs files more easily, I recommend you use [MbsEditor](https://github.com/Monkeytron/MbsEditor) .
 
 ## Planned improvements:
-- Expand the type library to be able to fully read all .mbs files used by stencyl (not just scene files).
-- Make some sort of interface to make .mbs editing more user friendly - similar to how hpr made [scnedit](https://hpr.github.io/scnedit/index.html) for .scn reading and editing.
+- Expand the type library to be able to fully read all .mbs files used by stencyl (not just scene and behavior files).
 
 ## Possible improvements:
 - Improve efficiency (this creates larger files for the same amount of raw game data stored than the stencyl engine.
     This may cause problems for the 5MB+ resources.mbs files if not improved.
-- Potentially add a conversion to/from an xml file format (again for easier editing)
