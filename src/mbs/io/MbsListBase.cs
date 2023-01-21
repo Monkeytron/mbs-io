@@ -77,6 +77,10 @@ namespace haxe_mbs_translate.src.mbs.io
         {
             return _length;
         }
+        public void forceNext()
+        {
+            elementAddress += elementSize;
+        } // only used for debugging
     }
 
     public class MbsBoolList : MbsListBase

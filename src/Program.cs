@@ -18,6 +18,7 @@ using haxe_mbs_translate.src.stencyl.models.scene;
 using haxe_mbs_translate.src.stencyl.io.mbs.scene.layers;
 using haxe_mbs_translate.src.stencyl.models;
 using System.Drawing;
+using System.Collections.Generic;
 
 
 /*
@@ -57,46 +58,120 @@ namespace haxe_mbs_translate.src
         {
             // An example of how to use the code to read an mbs file. This specific code only works with scene-{id}.mbs currently.
 
+            Console.WriteLine("Please enter mbs file path");
+
             MbsReader reader = new MbsReader(MbsVersionControl.ALLCURRENTVERSIONS, false, true);
 
-            Byte[] bytes = File.ReadAllBytes(Console.ReadLine());
+            Byte[] bytes = File.ReadAllBytes(Console.ReadLine().Trim('"'));
 
             reader.readData(bytes);
 
-            MbsScene r = reader.getRoot();
+            try
+            {
+                MbsScene r = reader.getRoot();
 
-            Scene s = Scene.FromMbs(r);
+                Scene s = Scene.FromMbs(r);
 
-            Console.WriteLine($"Successfully read scene {s.id} \"{s.name}\"");
-            Console.WriteLine(s.ToString(true, true, true, true, true));
+                Console.WriteLine($"Successfully read scene {s.id} \"{s.name}\"");
+                Console.WriteLine(s.ToString(true, true, true, true, true));
 
-            // Reading code finished.
+                // Reading code finished.
 
 
-            /*
-             * Data editing code can be added here.
-            */
+                /*
+                 * Data editing code can be added here.
+                */
 
-            // Writing code
+                // Writing code
 
-            MbsWriter w = new MbsWriter(MbsVersionControl.DADISH.Item2, false, MbsVersionControl.DADISH.Item1);
+                MbsWriter w = new MbsWriter(MbsVersionControl.DADISH.Item2, false, MbsVersionControl.DADISH.Item1);
 
-            MbsScene writeTo = new MbsScene(w);
+                MbsScene writeTo = new MbsScene(w);
 
-            writeTo.allocateNew();
+                writeTo.allocateNew();
 
-            s.WriteMbs(writeTo, false);
+                s.WriteMbs(writeTo, false);
 
-            w.setRoot(writeTo);
+                w.setRoot(writeTo);
 
-            w.prepareForOutput();
+                w.prepareForOutput();
 
-            w.writeToFile("scene-test.mbs");
+                w.writeToFile("scene-test.mbs");
 
-            // Writing code finished.
+                // Writing code finished.
 
-            Console.WriteLine($"Successfully written scene {s.id} \"{s.name}\"");
+                Console.WriteLine($"Successfully written scene {s.id} \"{s.name}\"");
 
+                Console.ReadLine();
+            }
+
+            catch
+            {
+                dynamic r = reader.getRoot();
+                Console.WriteLine($"File type: {r.getMbsType()}");
+                Console.WriteLine(r.GetType());
+
+                if (r is MbsListBase)
+                {
+                    Console.WriteLine($"Object type:{r.type}, count:{r.length()}");
+
+                    if (r is MbsDynamicList)
+                    {
+                        MbsDynamicList rprime = r;
+
+
+                        for (int i = 0; i < rprime.length(); i++)
+                        {
+                            try
+                            {
+                                dynamic d = rprime.readObject();
+                                Console.WriteLine($"Object {i} : {d}");
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine($"{i}/{rprime.length()}, {e.Message}");
+                                rprime.forceNext();
+                            }
+                        }
+                    }
+
+                    else if (r is MbsList<MbsObject>)
+                    {
+                        MbsList<MbsObject> rprime = (MbsList<MbsObject>)r;
+
+                        Dictionary<int, Behavior> snippets = new Dictionary<int, Behavior>();
+
+                        for (int i = 0; i < rprime.length(); i++)
+                        {
+                            try
+                            {
+                                MbsSnippetDef snip = (MbsSnippetDef)rprime.getNextObject();
+                                Behavior b = Behavior.FromMbs(snip);
+
+                                snippets.Add(b.ID, b);
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine($"{i}/{rprime.length()}, {e.Message}");
+                                rprime.forceNext();
+                            }
+                        }
+
+                        while (true)
+                        {
+                            try
+                            {
+                                Console.WriteLine(snippets[int.Parse(Console.ReadLine())]);
+                            }
+                            catch(Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("Program finished");
             Console.ReadLine();
         }
     }

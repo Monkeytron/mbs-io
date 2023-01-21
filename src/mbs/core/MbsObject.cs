@@ -38,5 +38,11 @@ namespace haxe_mbs_translate.src.mbs.core
         {
             throw new Exception("Must override getMbsType in MbsObject subclasses");
         }
+
+        public override string ToString()
+        {
+            return $"Mbs object of type {getMbsType().getName()} at address {address}";
+
+        }
     }
 }

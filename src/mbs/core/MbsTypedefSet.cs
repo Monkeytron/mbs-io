@@ -15,16 +15,16 @@ namespace haxe_mbs_translate.src.mbs.core
         {
             basicTypes = new MbsType[]
             {
-                MbsTypes.BOOLEAN,
-                MbsTypes.INTEGER,
-                MbsTypes.FLOAT,
-                MbsTypes.STRING,
-                MbsTypes.LIST,
-                MbsTypes.DYNAMIC,
-                MbsTypes.NULL,
-                MbsHeader.MBS_HEADER,
-                MbsTypeInfo.MBS_TYPE_INFO,
-                MbsFieldInfo.MBS_FIELD_INFO
+                MbsTypes.BOOLEAN, // 0, 0x0
+                MbsTypes.INTEGER, // 1, 0x1
+                MbsTypes.FLOAT, // 2, 0x2
+                MbsTypes.STRING, // 3, 0x3
+                MbsTypes.LIST, // 4, 0x4
+                MbsTypes.DYNAMIC, // 5,0x5
+                MbsTypes.NULL, // 6, 0x6 (only in latest ver)
+                MbsHeader.MBS_HEADER, // 7, 0x7 
+                MbsTypeInfo.MBS_TYPE_INFO, // 8,0x8
+                MbsFieldInfo.MBS_FIELD_INFO // 9,0x9
             };
         }
 

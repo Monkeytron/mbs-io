@@ -66,7 +66,7 @@ namespace haxe_mbs_translate.src.mbs.io
                     else if (type == MbsTypes.DYNAMIC) list = new MbsDynamicList(data);
                     else
                     {
-                        list = new MbsList<MbsObject>(data, type, type.createInstance(data)); // Bug possibility
+                        list = new MbsList<MbsObject> (data, type, type.createInstance(data)); // Bug possibility
                     }
 
                     list.setAddress(address);
