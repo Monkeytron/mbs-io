@@ -51,11 +51,7 @@ namespace haxe_mbs_translate.src.stencyl.behavior
             mbs.setType(type);
             if(type == "list")
             {
-                if (value.Length != 0) throw new Exception("Can't write the list when the length is not 0 sadly.");
-                else
-                {
-                    mbs.setValue(writeList(value,mbs.GetMbs()));
-                }
+                mbs.setValue(writeList(value,mbs.GetMbs()));
             }
             else if (type == "map")
             {
@@ -89,6 +85,22 @@ namespace haxe_mbs_translate.src.stencyl.behavior
         {
             MbsDynamicList ds = new MbsDynamicList(mbs);
 
+            if(list is null)
+            {
+                ds.setAddress(0);
+                return ds;
+            }
+            /*
+             * There is a problem with empty lists vs. null lists here.
+             * Basically every list I have encountered in .mbs files has been an empty list (this is their usage within the games I was looking at), apart from a couple have instead been null references.
+             * I am not sure whether null references vs empty lists matter, but as they are different in the original code I will respect this.
+             * Also, lists are annoying in mbs which is why i do not have any support for non-empty lists here!
+             */
+            else if(list.Length != 0)
+            {
+                throw new Exception("Non-empty lists not currently supported. I didn't think this would be relevant but if you're seeing this it is, so please tell me to fix it.");
+            }
+          
             ds.allocateNew(list.Length);
 
             foreach(dynamic d in list)

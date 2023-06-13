@@ -105,8 +105,9 @@ namespace haxe_mbs_translate.src
                 Console.ReadLine();
             }
 
-            catch
+            catch(Exception err)
             {
+                Console.WriteLine(err);
                 dynamic r = reader.getRoot();
                 Console.WriteLine($"File type: {r.getMbsType()}");
                 Console.WriteLine(r.GetType());
